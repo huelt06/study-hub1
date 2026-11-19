@@ -1,0 +1,20 @@
+STUDYFLOW - HUONG DAN CHAY
+
+1. Giai nen studyflow.zip, giu tat ca file cung mot thu muc:
+   index.html, style.css, i18n.js, kmap.js, ai.js, growth.js,
+   quickstart.js, auth.js, chat.js, script.js
+
+2. Chay bang may chu cuc bo (khong mo truc tiep file index.html):
+   - VS Code: cai "Live Server", bam Go Live; hoac
+   - Terminal trong thu muc: python -m http.server 8000
+     roi mo http://localhost:8000
+
+3. Can Internet de tai Tailwind, font, Lucide, pdf.js tu CDN.
+
+4. Dung thu: bam "Dung thu ngay" o man hinh dang nhap.
+   Trang "Tai lieu AI" co tai lieu mau khong can API key.
+   Muon phan tich tai lieu rieng va dung chat: nhap API key
+   tren trang "Tai lieu AI" (key chi luu trong trinh duyet cua ban).
+
+5. Thu tu nap script trong index.html la bat buoc:
+   i18n -> kmap -> ai -> growth -> quickstart -> auth -> chat -> script

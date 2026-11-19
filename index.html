@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6D3BFF">
+  <title>StudyFlow — Học tập thông minh cùng AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    const c = (v) => ({ opacityValue }) => opacityValue === undefined
+      ? `var(${v})`
+      : `color-mix(in srgb, var(${v}) calc(${opacityValue} * 100%), transparent)`;
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bg: c('--bg'), surface: c('--surface'), ink: c('--ink'),
+            muted: c('--muted'), line: c('--line'),
+            accent: c('--accent'), 'accent-ink': c('--accent-ink'), 'accent-soft': c('--accent-soft'),
+            ok: c('--ok'), bad: c('--bad')
+          },
+          fontFamily: { sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'], serif: ['"Source Serif 4"', 'Georgia', 'serif'] }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@0.469.0"></script>
+
+  <script>
+    (() => {
+      try {
+        const t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+
+<body class="bg-bg text-ink font-sans antialiased selection:bg-accent-soft selection:text-accent min-h-screen flex flex-col">
+  <header class="sticky top-0 z-30 bg-surface/80 backdrop-blur-md border-b border-line transition-colors duration-300">
+    <div class="mx-auto max-w-5xl min-h-16 px-4 py-2 sm:py-0 flex flex-wrap sm:flex-nowrap items-center gap-x-3 gap-y-1">
+      <a href="#/" class="flex items-center gap-2.5 font-bold tracking-tight text-lg group">
+        <div class="w-9 h-9 rounded-lg bg-accent-soft text-accent flex items-center justify-center transition-transform group-hover:scale-105">
+          <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+        </div>
+        <span class="hidden sm:inline" data-i18n="app.name">StudyFlow</span>
+      </a>
+
+      <nav class="order-last sm:order-none w-full sm:w-auto sm:ml-4 flex justify-around sm:justify-start gap-1.5 text-sm font-medium" aria-label="Điều hướng chính">
+        <a data-nav="dash" href="#/" class="nav-link"><i data-lucide="layout-dashboard"></i><span class="hidden sm:inline" data-i18n="nav.dash">Tổng quan</span></a>
+        <a data-nav="read" href="#/read" class="nav-link"><i data-lucide="book-open"></i><span class="hidden sm:inline" data-i18n="nav.read">Bài đọc</span></a>
+        <a data-nav="quiz" href="#/quiz" class="nav-link"><i data-lucide="list-checks"></i><span class="hidden sm:inline" data-i18n="nav.quiz">Trắc nghiệm</span></a>
+        <a data-nav="ai" href="#/ai" class="nav-link"><i data-lucide="sparkles"></i><span class="hidden sm:inline" data-i18n="nav.ai">Tài liệu AI</span></a>
+        <a data-nav="roadmap" href="#/roadmap" class="nav-link"><i data-lucide="map"></i><span class="hidden sm:inline" data-i18n="nav.roadmap">Lộ trình</span></a>
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <a id="xpChip" href="#/roadmap" class="xp-chip" data-i18n-aria="xp.aria"></a>
+        <button id="langToggle" class="icon-btn lang-btn" type="button" data-i18n-aria="lang.toggle">
+          <i data-lucide="languages" class="w-4 h-4"></i><span id="langLabel" class="text-xs font-bold">VI</span>
+        </button>
+        <button id="themeToggle" class="icon-btn" type="button" data-i18n-aria="theme.toggle">
+          <i data-lucide="moon" class="dark:hidden w-4 h-4"></i>
+          <i data-lucide="sun" class="hidden dark:block w-4 h-4"></i>
+        </button>
+        <div id="userSlot"></div>
+      </div>
+    </div>
+    <div id="progress" class="hidden h-1 bg-line w-full overflow-hidden" role="progressbar" data-i18n-aria="progress.read">
+      <div id="progressBar" class="h-full bg-accent w-0 transition-all duration-75"></div>
+    </div>
+  </header>
+
+  <main id="app" class="mx-auto max-w-5xl px-4 py-8 flex-1 w-full animate-fade-in"></main>
+
+  <footer class="border-t border-line py-6 text-center text-xs text-muted mt-auto">
+    <p data-i18n="footer">Xây dựng với tư duy tối ưu · Trải nghiệm học tập hiện đại</p>
+  </footer>
+
+  <!-- Thư viện bên ngoài -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <!-- Thứ tự nạp script bắt buộc: i18n -> kmap -> ai -> growth -> quickstart -> auth -> chat -> script -->
+  <script src="i18n.js" defer></script>
+  <script src="kmap.js" defer></script>
+  <script src="ai.js" defer></script>
+  <script src="growth.js" defer></script>
+  <script src="quickstart.js" defer></script>
+  <script src="auth.js" defer></script>
+  <script src="chat.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
